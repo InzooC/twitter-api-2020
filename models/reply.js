@@ -6,13 +6,13 @@ module.exports = (sequelize, DataTypes) => {
   class Reply extends Model {
     static associate(models) {
       Reply.belongsTo(models.User, { foreignKey: 'userId' })
-      Reply.belongsTo(models.Tweet, { foreignKey: 'TweetId' })
+      Reply.belongsTo(models.Tweet, { foreignKey: 'tweetId' })
     }
   }
   Reply.init({
     comment: DataTypes.TEXT,
-    user_id: DataTypes.INTEGER,
-    tweet_id: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER,
+    TweetId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Reply',

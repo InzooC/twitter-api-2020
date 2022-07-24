@@ -5,14 +5,14 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Tweet extends Model {
     static associate(models) {
-      Tweet.hasMany(models.User, { foreignKey: 'likeId' })
-      Tweet.hasMany(models.User, { foreignKey: 'replyId' })
+      Tweet.hasMany(models.Like, { foreignKey: 'tweetId' })
+      Tweet.hasMany(models.Reply, { foreignKey: 'tweetId' })
       Tweet.belongsTo(models.User, { foreignKey: 'userId' })
     }
   }
   Tweet.init({
     description: DataTypes.TEXT,
-    user_Id: DataTypes.INTEGER,
+    user_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Tweet',
