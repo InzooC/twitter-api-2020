@@ -17,7 +17,12 @@ router.post('/api/admin/users', passport.authenticate('local', { session: false 
 router.use('/api/admin', authenticated, authenticatedAdmin, admin)
 router.use('/api/tweets', authenticated, authenticatedUser, tweets)
 router.use('/api/followships', authenticated, authenticatedUser, followship)
-router.use('/api/users', authenticated, authenticatedUser, users)
+// router.use('/api/users', authenticated, authenticatedUser, users)
+router.use('/api/users', users)
+
+
+
+
 
 router.use('/', apiErrorHandler)
 

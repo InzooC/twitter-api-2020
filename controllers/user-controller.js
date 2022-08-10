@@ -422,6 +422,31 @@ const userController = {
     } catch (err) {
       next(err)
     }
+  },
+  showImg: async (req, res, next) => {
+    try {
+      res.render('showImg')
+    } catch (err) {
+      next(err)
+    }
+  },
+  uploadImg: async (req, res, next) => {
+    try {
+      res.render('postImg')
+    } catch (err) {
+      next(err)
+    }
+  },
+  postImg: async (req, res, next) => {
+    try {
+      const avatarFile = req.files?.avatar ? await imgurFileHandler(...req.files.avatar) : null
+      const coverFile = req.files?.cover ? await imgurFileHandler(...req.files.cover) : null
+      console.log(avatarFile)
+      console.log(coverFile)
+      res.render('showImg', { avatarFile, coverFile })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 
