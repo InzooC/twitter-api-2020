@@ -439,11 +439,12 @@ const userController = {
   },
   postImg: async (req, res, next) => {
     try {
+      const { introduction, name } = req.body
       const avatarFile = req.files?.avatar ? await imgurFileHandler(...req.files.avatar) : null
       const coverFile = req.files?.cover ? await imgurFileHandler(...req.files.cover) : null
       console.log(avatarFile)
       console.log(coverFile)
-      res.render('showImg', { avatarFile, coverFile })
+      res.render('showImg', { avatarFile, coverFile, name, introduction })
     } catch (err) {
       next(err)
     }
