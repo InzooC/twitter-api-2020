@@ -12,9 +12,9 @@ router.get('/:id/likes', userController.getUserLikes)
 router.get('/recommendUsers', userController.getRecommendUsers)
 router.get('/currentUser', userController.getCurrentUser)
 
-router.get('/showImg', userController.showImg)
-router.get('/postImg', userController.uploadImg)
-router.post('/postImg', upload.fields([{ name: 'cover' }, { name: 'avatar' }]), userController.postImg)
+router.get('/showImg/:id', userController.showImg)
+router.get('/putImg/:id', userController.uploadImg)
+router.put('/putImg/:id', upload.fields([{ name: 'cover' }, { name: 'avatar' }]), userController.putImg)
 
 router.get('/:id', userController.getUser)
 router.put('/:id', upload.fields([{ name: 'cover' }, { name: 'avatar' }]), userController.editUser)

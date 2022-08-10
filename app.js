@@ -8,6 +8,7 @@ const routes = require('./routes')
 const helpers = require('./_helpers')
 const session = require('express-session')
 const passport = require('./config/passport')
+const methodOverride = require('method-override')
 
 const cors = require('cors')
 // Setting Cors
@@ -33,6 +34,7 @@ app.use('/upload', express.static(path.join(__dirname, 'upload')))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(session({ secret: sessionSecretForTest ? sessionSecretForTest : process.env.SESSION_SECRET, resave: false, saveUninitialized: false }))
+app.use(methodOverride('_method'))
 app.use(passport.initialize())
 app.use(passport.session())
 

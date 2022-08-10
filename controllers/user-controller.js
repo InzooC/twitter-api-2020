@@ -425,26 +425,45 @@ const userController = {
   },
   showImg: async (req, res, next) => {
     try {
-      res.render('showImg')
+      const userId = req.params.id
+      const user = await User.findByPk(Number(userId), {
+        attributes: [
+          'id', 'account', 'name', 'email', 'avatar', 'cover', 'introduction', 'role'
+        ],
+        raw: true,
+        nest: true
+      })
+      res.render('showImg', { user })
     } catch (err) {
       next(err)
     }
   },
   uploadImg: async (req, res, next) => {
     try {
-      res.render('postImg')
+      const userId = req.params.id
+      res.render('postImg', { userId })
     } catch (err) {
       next(err)
     }
   },
-  postImg: async (req, res, next) => {
+  putImg: async (req, res, next) => {
     try {
+      const userId = req.params.id
       const { introduction, name } = req.body
       const avatarFile = req.files?.avatar ? await imgurFileHandler(...req.files.avatar) : null
       const coverFile = req.files?.cover ? await imgurFileHandler(...req.files.cover) : null
       console.log(avatarFile)
       console.log(coverFile)
-      res.render('showImg', { avatarFile, coverFile, name, introduction })
+
+      const user = await User.findByPk(Number(userId))
+      const updatedUser = await user.update({
+        name: name || user.name,
+        introduction: introduction || user.introduction,
+        avatar: avatarFile || user.avatar,
+        cover: coverFile || user.cover
+      })
+
+      res.redirect(`/api/users/showImg/${userId}`)
     } catch (err) {
       next(err)
     }
